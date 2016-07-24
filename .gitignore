@@ -98,7 +98,7 @@ ENV/
 .idea/
 
 # Personal load details
-config.json
+#config.json
 src/
 info.json
 inventory.json
@@ -111,6 +111,6 @@ web/location.json
 web/userdata.js
 data/last-location*.json
 data/catch-ignore.yml
-release_config.json
+#release_config.json
 web/userdata.js
 location.json
