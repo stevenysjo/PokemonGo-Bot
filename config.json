@@ -1,9 +1,9 @@
 {
     "auth_service": "google",
-    "username": "<username>",
-    "password": "<password>",
-    "location": "Stadion Utama Gelora Bung Karno, Gelora, Central Jakarta City, Special Capital Region of Jakarta",
-    "gmapkey": "<gmapkey>",
+    "username": "sdrm.ads@gmail.com",
+    "password": "surya123google",
+    "location": "33.785522,-118.292174",
+    "gmapkey": "AIzaSyBy9_t0g1uhhaZTpQm7cZOrfDsyWV1lkI8",
     "max_steps": 5,
     "mode": "all",
     "walk": 4.16,
