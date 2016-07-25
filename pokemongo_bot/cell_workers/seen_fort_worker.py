@@ -28,13 +28,8 @@ class SeenFortWorker(object):
                               latitude=lat,
                               longitude=lng)
         response_dict = self.api.call()
-        if 'responses' in response_dict \
-                and'FORT_DETAILS' in response_dict['responses'] \
-                and 'name' in response_dict['responses']['FORT_DETAILS']:
-            fort_details = response_dict['responses']['FORT_DETAILS']
-            fort_name = fort_details['name'].encode('utf8', 'replace')
-        else:
-            fort_name = 'Unknown'
+        fort_details = response_dict['responses']['FORT_DETAILS']
+        fort_name = fort_details['name'].encode('utf8', 'replace')
         logger.log('[#] Now at Pokestop: ' + fort_name + ' - Spinning...',
                    'yellow')
         sleep(2)
