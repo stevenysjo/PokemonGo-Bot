@@ -14,9 +14,9 @@ def log(string, color = 'white'):
         'red': '91m'
     }
     if color not in colorHex:
-        print('[' + time.strftime("%Y-%m-%d %H:%M:%S") + '] '+ string)
+        print(string)
     else:
-        print(u'\033['+ colorHex[color] + '[' + time.strftime("%Y-%m-%d %H:%M:%S") + '] ' + string.decode('utf-8') + '\033[0m')
+        print(u'\033['+ colorHex[color] + string.decode('utf-8') + '\033[0m')
     if lcd:
         if(string):
             lcd.message(string)

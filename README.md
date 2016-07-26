@@ -10,12 +10,17 @@
 
 # PokemonGo-Bot
 The Pokemon Go Bot, baking with community.
-
+## Help Needed on [Desktop Version](https://github.com/PokemonGoF/PokemonGo-Bot-Desktop)
 ## Project Chat
 We use [Slack](https://slack.com) as a web chat. [Click here to join the chat!](https://pokemongo-bot.herokuapp.com)
-## About dev Branch
-This branch has most up to date feature and even everyone handle the part well, still, will have broken changes.
-Your test contribute and PR for fix are well welcome. Or, you can wait on the master branch.
+## Breaking Changes
+You need modify config.json (config.json.example for example) then pokecli.py --config config.json 
+Please clean up your old clone if you have issue, and following the [install instruction](https://github.com/PokemonGoF/PokemonGo-Bot#installation).
+
+## About dev/master Branch
+Dev branch has the most up-to-date features, but be aware that there might be some broken changes. Your contribution and PR for fixes are warm welcome. 
+Master branch is the stable branch.  
+No PR on master branch to keep things easier.  
 ## Table of Contents
 - [Project Chat](#project-chat)
 - [Features](#features)
@@ -37,27 +42,27 @@ Your test contribute and PR for fix are well welcome. Or, you can wait on the ma
  * Catch Pokemon
  * Release low cp pokemon
  * Walking as you
+ * Limit the step to farm specific area for pokestops
  * Use the ball you have to catch, don't if you don't have
  * Rudimentary IV Functionality filter
- * Auto switch mode(Full of item then catch, no ball useable then farm)
+ * Auto switch mode (Full of item then catch, no ball useable then farm)
  * Ignore certain pokemon filter
  * Use superior ball types when necessary
  * When out of normal pokeballs, use the next type of ball unless there are less than 10 of that type, in which case switch to farm mode
+ * Drop items when bag is full (In Testing, Document contribute needed)
+ * Pokemon catch filter (In Testing, Document contribute needed)
+ * Google Map API key setup (Readme update needed)
+ * Show all objects on map (In Testing)
+ * Evolve pokemons (Code in, Need input, In Testing)
 
 ## TODO List
 
 - [ ] Standalone Desktop APP
-- [x] Google Map API key setup (Readme update needed)
-- [x] Show all objects on map (In Testing)
-- [x] Limit the step to farm specific area for pokestops
-- [ ] Pokemon transfer filter
-- [x] Drop items when bag is full (In Testing)
-- [x] Pokemon catch filter
+- [ ] Pokemon transfer filter ?? This already done, right?
 - [ ] Hatch eggs
 - [ ] Incubate eggs
-- [ ] Evolve pokemons
 - [ ] Use candy
-- [x] Code refactor
+- [ ] Fight Gym
 
 ## Installation
 
@@ -76,16 +81,22 @@ Your test contribute and PR for fix are well welcome. Or, you can wait on the ma
 - Windows: Download protobuf 3.0: [here](https://github.com/google/protobuf/releases/download/v3.0.0-beta-4/protoc-3.0.0-beta-4-win32.zip) and unzip `bin/protoc.exe` into a folder in your PATH.
 - Linux: `apt-get install python-protobuf`
 
+### Note on branch
+Please keep in mind that master is not always up-to-date whereas 'dev' is. In the installation note below change `master` to `dev` if you want to get and use the latest version.
 
 ### Installation Linux
+(change master to dev for the latest version)
 
 ```
 $ git clone -b master https://github.com/PokemonGoF/PokemonGo-Bot  
 $ cd PokemonGo-Bot  
 $ pip install -r requirements.txt
+$ git submodule init
+$ git submodule update
 ```
 
 ### Installation Mac
+(change master to dev for the latest version)
 
 ```
 $ git clone -b master https://github.com/PokemonGoF/PokemonGo-Bot  
@@ -93,23 +104,40 @@ $ cd PokemonGo-Bot
 $ virtualenv .  
 $ source bin/activate  
 $ pip install -r requirements.txt
+$ git submodule init
+$ git submodule update
 ```
 
 ### Installation Windows
+(change master to dev for the latest version)
 
-###### Windows Note
-On Windows, you will need to install PyYaml through the  [installer](http://pyyaml.org/wiki/PyYAML) and not through requirements.txt.
+On Windows, you will need to install PyYaml through the installer and not through requirements.txt.
 
-Windows 10:
-    Go to [this](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyyaml) page and download: PyYAML-3.11-cp27-cp27m-win32.whl   
-    (If running 64-bit python or if you get a 'not a supported wheel on this platform' error,
-    download the 64 bit version instead: PyYAML-3.11-cp27-cp27m-win_amd64.whl )
+##### Windows vista, 7, 8:
+Go to : http://pyyaml.org/wiki/PyYAML , download the right version for your pc and install it
+
+##### Windows 10:
+Go to [this](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyyaml) page and download: PyYAML-3.11-cp27-cp27m-win32.whl   
+(If running 64-bit python or if you get a 'not a supported wheel on this platform' error,
+download the 64 bit version instead: PyYAML-3.11-cp27-cp27m-win_amd64.whl )
+
 ```
 $ cd download-directory
 $ pip install PyYAML-3.11-cp27-cp27m-win32.whl
-// (replace PyYAML-3.11-cp27-cp27m-win32.whl with PyYAML-3.11-cp27-cp27m-win_amd64.whl
 // if you needed to download the 64-bit version)
+// (replace PyYAML-3.11-cp27-cp27m-win32.whl with PyYAML-3.11-cp27-cp27m-win_amd64.whl
 ```
+
+After this, just do:
+
+```
+$ git clone -b master https://github.com/PokemonGoF/PokemonGo-Bot  
+$ cd PokemonGo-Bot  
+$ pip install -r requirements.txt
+$ git submodule init
+$ git submodule update
+```
+
 ### Develop PokemonGo-Bot
 
 ```
@@ -118,6 +146,8 @@ $ cd PokemonGo-Bot
 $ virtualenv .  
 $ source bin/activate  
 $ pip install -r requirements.txt  
+$ git submodule init
+$ git submodule update
 ```
 
 ### Google Maps API (in development)
@@ -133,42 +163,51 @@ This project uses Google Maps. There's one map coupled with the project, but as 
 5. Copy the API key that appears.
 6. After the code done, will update here how to replace.
 
-## Usage
-    usage: pokecli.py [-h] -a AUTH_SERVICE -u USERNAME -p PASSWORD -l LOCATION [-lc] [-m] [-w] [--distance_unit] [--initial-transfer] [--maxsteps] [-iv] [-d] [-t]
+### Python possible bug
+If you encounter problems with the module `ssl` and it's function `_create_unverified_context`, just comment it. (Solution available in Python 2.7.11)
+In order to comment out the function and the module, please follow the instructions below:
+- edit `pokecli.py`
+- put `#` before `if` (line 43) and `ssl` (line 44)
+- save it
 
-    optional arguments:
-      -h, --help                                    show this help message and exit
-      -a AUTH_SERVICE, --auth_service AUTH_SERVICE  Auth Service ('ptc' or 'google')
-      -u USERNAME, --username USERNAME              Username
-      -p PASSWORD, --password PASSWORD              Password
-      -l LOCATION, --location LOCATION              Location (Address or 'xx.yyyy,zz.ttttt')
-      -lc, --location_cache                         Bot will start at last known location
-      -m MODE, --mode MODE                          Set farming Mode for the bot ('all', 'poke', 'farm')
-      -w SPEED,  --walk SPEED                       Walk instead of teleport with given speed (meters per second max 4.16 because of walking end on 15km/h)
-      -du, --distance_unit UNIT                     Set the unit to display distance in (e.g, km for kilometers, mi for miles, ft for feet)
-      -it, --initial_transfer                       Transfer all duplicate pokemon with same ID on bot start, except pokemon with highest CP. Accepts a number to prevent transferring pokemon with a CP above the provided value.  Default is 0 (aka transfer none).
-      -ms, --max_steps MAX_STEP                     Set the steps around your initial location (DEFAULT 5 mean 25 cells around your location)
-      -if LIST, --item_filter LIST                  Pass a list of unwanted items to recycle when collected at a Pokestop (e.g, [\"101\",\"102\",\"103\",\"104\"] to recycle potions when collected)" 
-      -d, --debug                                   Debug Mode
-      -t, --test                                    Only parse the specified location
+Please keep in mind that this fix is only necessary if your python version don't have the `_create_unverified_context` argument in the ssl module.
 
-### Command Line Example
-    Pokemon Trainer Club (PTC) account:
-    $ python2 pokecli.py -a ptc -u tejado -p 1234 --location "New York, Washington Square"
-    Google Account:
-    $ python2 pokecli.py -a google -u tejado -p 1234 --location "New York, Washington Square"
+## Update
+To update your project do: `git pull` in the project folder
 
-### Advance Releasing Configuration
-    To edit the pokemon release configuration, copy file ``release_config.json.example`` and rename it to ``release_config.json``
+## Usage (up-to-date)
+	1/ copy `config.json.example` to `config.json` and `release_config.json.example` to `release_config.json`.
+	2/ Edit `config.json` and replace `auth_service`, `username`, `password`, `location` and `gmapkey` with your parameters (other keys are optional, check `Advance Configuration` below)
 
-    Edit this file however you like, but keep in mind:
+## Advance Configuration
+- `max_steps` :
+- `mode` :
+- `walk` :
+- `debug` : Let the default value here except if you are developper
+- `test` : Let the default value here except if you are developper
+- `initial_transfer` : Set this to 1 if you want to transfer pokemon
+- `location_cache` : 
+- `distance_unit` :
+- `item_filter` :
+- `evolve_all` : Set to true to evolve pokemons if possible
 
-    1. Pokemon name is always capitalize and case-sensitive
-    2. Be careful with the ``any`` configuration!
+### Evolve All Configuration
+    By setting the `evolve_all` attribute in config.json, you can instruct the bot to automatically
+    evolve specified pokemons on startup. This is especially useful for batch-evolving after popping up
+    a lucky egg (currently this needs to be done manually).
     
+    The evolve all mechanism evolves only higher CP pokemons. It does this by first ordering them from high-to-low CP.
+    It will also automatically transfer the evolved pokemons based on the release configuration.
+    
+    Examples on how to use (set in config.json):
+    
+    1. "evolve_all": "all"
+      Will evolve ALL pokemons.
+    2. "evolve_all": "Pidgey,Weedle"
+      Will only evolve Pidgey and Weedle.
+    3. Not setting evolve_all or having any other string would not evolve any pokemons on startup.
+
 ## How to run with Docker
-
-
 
 ## How to add/discover new API
   The example is [here](https://github.com/PokemonGoF/PokemonGo-Bot/commit/46e2352ce9f349cc127a408959679282f9999585)  
@@ -225,7 +264,7 @@ Try to generate an [app password](!https://support.google.com/accounts/answer/18
 ```
 -p "<your-app-password>"
 ```
-This error is mostly occurs for those who using 2 factor authentication but either way for the purpose of security would be nice to have a separate password for the bot app.
+This error mostly occurs for those who are using 2 factor authentication, but either way, for the purpose of security it would be nice to have a separate password for the bot app.
 
 
 ### FLEE
@@ -243,7 +282,7 @@ Create the following filter
 ```
 ./data/catch-ignore.yml
 ```
-Its a yaml file with a list of names so make it look like
+It's a yaml file with a list of names so make it look like
 ```
 ignore:
   - Pidgey
@@ -292,7 +331,13 @@ If using multiple usernames format like this:
  * Grace
  * Calcyfer
  * asaf400
-
+ * guyz
+ * DavidK1m
+ * budi-khoirudin
+ * riberod07
+ * th3w4y
+ * Leaklessgfy
+ 
 -------
 ## Credits
 - [tejado](https://github.com/tejado) many thanks for the API
